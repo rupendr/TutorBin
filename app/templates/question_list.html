@@ -36,8 +36,7 @@
                         src="{{question.question.url}}"></iframe>
             </div>
         </td>
-        {% elif question.id|checkStatus:question.question.name == "png" or
-        question.id|checkStatus:question.question.name == "jpg" %}
+        {% elif question.id|checkStatus:question.question.name == "png" or question.id|checkStatus:question.question.name == "jpg" %}
         <td>
             <div class="popup-gallery">
                 <a href="{{question.question.url}}" height=75% width="50%">Question View</a>
