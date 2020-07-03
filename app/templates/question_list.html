@@ -1,5 +1,5 @@
 {% extends 'home.html' %}
-
+{% load custom_ext_filter_tags %}
 {% block content %}
 
 {% block content_header %}
@@ -19,21 +19,34 @@
     </thead>
     <tbody>
     {% for question in questions %}
+
     <tr>
         <td>{{question.id}}</td>
-        {% if question.question.get_extension == '.pdf' %}
+        {% if question.id|checkStatus:question.question.name == "pdf" %}
         <td>
             <div class="popup-gallery">
                 <iframe name="awindow" frameborder="2" width="580" height="440"
                         src="{{question.question.url}}"></iframe>
             </div>
         </td>
-        {% else %}
+        {% elif question.id|checkStatus:question.question.name == "txt" %}
+        <td>
+            <div class="popup-gallery">
+                <iframe name="awindow" frameborder="2" width="580" height="440"
+                        src="{{question.question.url}}"></iframe>
+            </div>
+        </td>
+        {% elif question.id|checkStatus:question.question.name == "png" or
+        question.id|checkStatus:question.question.name == "jpg" %}
         <td>
             <div class="popup-gallery">
                 <a href="{{question.question.url}}" height=75% width="50%">Question View</a>
-
             </div>
+        </td>
+        {% else %}
+        <td>
+            <a href="{{question.question.url}}" height=75% width="50%">{{message}}</a>
+
         </td>
         {% endif %}
         <td>{{question.comment}}</td>
