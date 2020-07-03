@@ -1,0 +1,62 @@
+{% extends 'home.html' %}
+
+{% block content %}
+
+{% block content_header %}
+<h2>Question</h2>
+
+{% endblock %}
+
+<table class="table mb-0">
+    <thead>
+    <tr>
+        <th>NO.</th>
+        <th>question</th>
+        <th>comment</th>
+
+        <th>created_at</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+
+    <tr>
+        <td>{{question.id}}</td>
+        {% if question.question.get_extension == '.pdf' %}
+        <td>
+            <div class="popup-gallery">
+                <iframe name="awindow" frameborder="2" width="580" height="440"
+                        src="{{question.question.url}}"></iframe>
+            </div>
+        </td>
+        {% elif question.question.get_extension == '.txt' %}
+        <td>
+            <div class="popup-gallery">
+                <iframe name="awindow" frameborder="2" width="580" height="440"
+                        src="{{question.question.url}}"></iframe>
+            </div>
+        </td>
+        {% elif question.question.get_extension == '.png' or '.jpg' %}
+        <td>
+            <div class="popup-gallery">
+                <a href="{{question.question.url}}" height=75% width="50%">Question View</a>
+                {{message}}
+            </div>
+        </td>
+        {% else %}
+        <td>
+            <div class="popup-gallery">
+                <a href="{{question.question.url}}" height=75% width="50%">Question View</a>
+                {{message}}
+            </div>
+        </td>
+        {% endif %}
+        <td>{{question.comment}}</td>
+        <td>{{question.created_at}}</td>
+    </tr>
+
+    {% endfor %}
+    </tbody>
+
+</table>
+{% endblock %}
